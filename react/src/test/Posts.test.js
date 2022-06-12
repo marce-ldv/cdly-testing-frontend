@@ -10,16 +10,16 @@ const post = {
 };
 
 describe('Post container', () => {
-  it('should retrieve a post when create one', () => {
+  it('should retrieve a post when create one', async () => {
     postRepository.create = jest.fn();
-    const setPosts = jest.fn()
+    const setPosts = jest.fn();
 
     render(<Posts postRepository={postRepository}/>);
 
     const submitBtn = screen.getByRole('button', { name: 'Submit' });
     const result = postRepository.create.mockResolvedValue(post);
 
-    act(() => {
+    await act(async () => {
       userEvent.click(submitBtn);
       setPosts(result);
     });
